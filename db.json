@@ -1,25 +1,14 @@
 {
   "users": [
-    {
-      "id": 0,
-      "name": "s",
-      "surname": "s",
-      "mail": "benos@mail.eu",
-      "number": "a"
-    },
-    {
-      "id": 0,
-      "name": "s",
-      "surname": "1",
-      "mail": "a@mail.ru",
-      "number": "12"
-    },
-    {
-      "id": 0,
-      "name": "wq",
-      "surname": "1",
-      "mail": "benos@mail.eu",
-      "number": "21"
-    }
+    { "id": 1, "name": "John", "surname": "Doe", "number": "1234567890", "mail": "john@example.com" },
+    { "id": 2, "name": "Jane", "surname": "Doe", "number": "9876543210", "mail": "jane@example.com" },
+    { "id": 3, "name": "Alice", "surname": "Smith", "number": "5551234567", "mail": "alice@example.com" },
+    { "id": 4, "name": "Bob", "surname": "Johnson", "number": "7779876543", "mail": "bob@example.com" },
+    { "id": 5, "name": "Eva", "surname": "Brown", "number": "1112223344", "mail": "eva@example.com" },
+    { "id": 6, "name": "Charlie", "surname": "Miller", "number": "9998887766", "mail": "charlie@example.com" },
+    { "id": 7, "name": "Sophie", "surname": "Williams", "number": "4445556677", "mail": "sophie@example.com" },
+    { "id": 8, "name": "David", "surname": "Davis", "number": "2223334455", "mail": "david@example.com" },
+    { "id": 9, "name": "Grace", "surname": "Jones", "number": "6667778899", "mail": "grace@example.com" },
+    { "id": 10, "name": "Michael", "surname": "Wilson", "number": "3334445566", "mail": "michael@example.com" }
   ]
 }
