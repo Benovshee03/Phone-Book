@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "s",
+      "surname": "s",
+      "mail": "benos@mail.eu",
+      "number": "a"
+    },
+    {
+      "id": 0,
+      "name": "s",
+      "surname": "1",
+      "mail": "a@mail.ru",
+      "number": "12"
+    },
+    {
+      "id": 0,
+      "name": "wq",
+      "surname": "1",
+      "mail": "benos@mail.eu",
+      "number": "21"
+    }
+  ]
+}
