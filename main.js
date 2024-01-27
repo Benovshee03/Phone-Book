@@ -38,6 +38,7 @@ async function fetchData() {
       searchInput.addEventListener("keyup", (e) => {
         var val = e.target.value;
         const filteredData = data.filter((u) => {
+            console.log(u.name);
           let name = u.name.toLowerCase();
           let surname = u.surname.toLowerCase();
           let mail = u.mail.toLowerCase();
@@ -64,6 +65,14 @@ async function fetchData() {
           <td>${e.surname}</td>
           <td>${e.number}</td>
           <td>${e.mail}</td>
+          <td>
+          <button type="button" class="btn btn-danger times" data-id="${e.id}">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button type="button" class="btn btn-warning update" data-id="${e.id}">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </td>
           `;
       tbody.appendChild(trow);
     });
@@ -114,6 +123,10 @@ async function fetchData() {
       const userId = e.target.getAttribute("data-id");
       deleteUser(userId);
     }
+    if (e.target.classList.contains("update")) {
+        const userId = e.target.getAttribute("data-id");
+        getUserDetails(userId);
+      }
   });
 
   async function deleteUser(userId) {
@@ -129,18 +142,61 @@ async function fetchData() {
       console.log(err);
     }
   }
-  async function updateUser(updatedId){
+  async function updateUser(userId) {
     try {
-        const response = await fetch(`${myUrl}/${updatedId}`,{
+        const updatedUser = {
+            name: nameInput.value,
+            surname: surnameInput.value,
+            mail: emailInput.value,
+            number: numberInput.value,
+        };
+
+        await fetch(`${myUrl}/${userId}`, {
             method: "PUT",
             headers: {
-                "Content-type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(updateTask)
-        })
-        console.log(response);
+            body: JSON.stringify(updatedUser),
+        });
+
+        fetchData();
     } catch (error) {
-        
+        console.error("Error updating user:", error);
     }
+}
+
+
+  async function getUserDetails(userId) {
+    try {
+        const response = await fetch(`${myUrl}/${userId}`);
+        const userData = await response.json();
+
+        nameInput.value = userData.name;
+        surnameInput.value = userData.surname;
+        emailInput.value = userData.mail;
+        numberInput.value = userData.number;
+        const updateButton = document.createElement("button");
+        updateButton.innerHTML = "Update";
+        updateButton.classList.add("btn", "btn-warning", "col-2", "col-sm-2", "col-md-2s");
+
+        updateButton.addEventListener("click", () => {
+            updateUser(userId);
+            clearInputFields();
+        });
+
+        document.querySelector(".buttons").append(updateButton);
+
+        submitButton.setAttribute('disabled', 'true');
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+    }
+}
+
+function clearInputFields() {
+    nameInput.value = "";
+    surnameInput.value = "";
+    emailInput.value = "";
+    numberInput.value = "";
+    submitButton.removeAttribute('disabled');
 }
   fetchData();

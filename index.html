@@ -17,7 +17,7 @@
         <input type="search" class="form-control mb-3 search" name="search" id="search" placeholder="Search">
         <div class="row">
             <div class="form col-xs-12 col-md-5 mb-3 ">
-                <form action="#" class="row  ">
+                <form action="#" class="row">
                     <div class=" col-sm-12 col-md-6 ">
                         <label for="name" class="form-label "></label>
                         <input type="text" class="form-control name" id="name" placeholder="Your username"required >
@@ -34,9 +34,9 @@
                         <label for="surname" class="form-label"></label>
                         <input type="text" class="form-control number" placeholder="Your phone number" required>
                     </div>
-                    <div class="col-11 mt-4 mb-4 ">
-                        <div class="row d-flex justify-content-end ">
-                            <button type="submit" class="btn  btn-success col-2  col-sm-2 col-md-2s submit">Submit</button>
+                    <div class="col-11 mt-4 mb-4  ">
+                        <div class="row d-flex justify-content-end buttons g-1">
+                            <button type="submit" class="btn  btn-success col-2  col-sm-2 col-md-2s submit mr-5">Submit</button>
                         </div>
                     </div>
                   </form>
@@ -55,6 +55,16 @@
                     <tbody class="tbody">
                     </tbody>
                   </table>
+              </div>
+              <div class="card d-md-none">
+                <div class="card-body">
+                  <button type="button" class="btn btn-danger times" data-id="${e.id}">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                  <button type="button" class="btn btn-warning update" data-id="${e.id}">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                </div>
               </div>
         </div>
     </section>
