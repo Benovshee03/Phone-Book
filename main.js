@@ -158,16 +158,16 @@ function postNewUser(newUser) {
 
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("times")) {
-        const userId = e.target.getAttribute("data-id");
-        deleteUser(userId);
+        const id = e.target.getAttribute("data-id");
+        deleteUser(id);
     }
     if (e.target.classList.contains("update")) {
-        const userId = e.target.getAttribute("data-id");
-        getUserDetails(userId);
+        const id = e.target.getAttribute("data-id");
+        getUserDetails(id);
     }
     if (e.target.closest(".card")) {
-      const userId = e.target.closest(".card").querySelector(".update").getAttribute("data-id");
-      showUserDetailsModal(userId);
+      const id = e.target.closest(".card").querySelector(".update").getAttribute("data-id");
+      showUserDetailsModal(id);
   }
 });
 
@@ -232,42 +232,50 @@ async function getUserDetails(id) {
         console.error("Error fetching user details:", error);
     }
 }
-function showUserDetailsModal(userId) {
-  getUserDetailsForModal(userId).then((user) => {
+function showUserDetailsModal(id) {
+    getUserDetailsForModal(id).then((user) => {
+        console.log( user);
       const modalBody = modal.querySelector(".modal-body");
       modalBody.innerHTML = `
-          <input class="form-control row mb-2" value="${user.name}" placeholder="Your username">
-          <input class="form-control row mb-2" value="${user.surname}" placeholder="Your surname" required>
-          <input class="form-control row mb-2" value="${user.number}" placeholder="Your email">
-          <input class="form-control row mb-2" value="${user.mail}" placeholder="Your phone number" required>
-          // <button type="submit btn btn-warning"></button>
+        <input class="form-control row mb-2" id="modalName" value="${user.name}" placeholder="Your username" required>
+        <input class="form-control row mb-2" id="modalSurname" value="${user.surname}" placeholder="Your surname" required>
+        <input class="form-control row mb-2" id="modalNumber" value="${user.number}" placeholder="Your phone number" required>
+        <input class="form-control row mb-2" id="modalMail" value="${user.mail}" placeholder="Your email" required>
       `;
-      $(modal).modal("show");
-
+  
       const editButton = document.createElement("button");
       editButton.innerHTML = "Edit";
-      editButton.type="submit"
-      editButton.classList.add("btn","btn-warning","text-align-end")
-      document.querySelector(".modal-body").append(editButton)
-      editButton.addEventListener(("click"),()=>{
-        updateUser(userId)
-        console.log("it is not completed");
-        $(modal).modal("hide")
-        clearInputFields()
-      })
-
-  });
-}
+      editButton.type = "submit";
+      editButton.classList.add("btn", "btn-warning", "text-align-end");
+      modalBody.append(editButton);
+  
+      editButton.addEventListener("click", () => {
+        const updatedUser = {
+          name: document.getElementById("modalName").value,
+          surname: document.getElementById("modalSurname").value,
+          number: document.getElementById("modalNumber").value,
+          mail: document.getElementById("modalMail").value,
+        };
+      console.log(`id:${id}`);
+        
+        updateUser(id, updatedUser);
+        $(modal).modal("hide");
+      });
+  
+      $(modal).modal("show");
+    });
+  }
+  
 async function getUserDetailsForModal(id) {
   try {
       const response = await fetch(`${myUrl}/${id}`);
+      console.log("Server Response:", response);
       const userData = await response.json();
-      return userData; 
       nameInput.value = userData.name;
       surnameInput.value = userData.surname;
       emailInput.value = userData.mail;
       numberInput.value = userData.number;
-
+      return userData; 
   } catch (error) {
       console.error("Error fetching user details:", error);
   }
